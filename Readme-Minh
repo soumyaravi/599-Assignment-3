@@ -1,0 +1,13 @@
+- Question 8:
+	- Get ner.json file from Assignment 2 result
+	- Run json_to_csv.py to generate count_words.csv
+	- Use WorldCloud.html to view WorldCloud d3 graph
+
+Question 9:
+	- Change “from” variable in java/Test.java to data folder path
+	- Run java/Test.java and get output files
+	- Run python/max_joint_agreement.py on output files to produce max_joint.json
+	- Use NER.html to view NER maximum joint agreement
+
+Question 10:
+	- 

@@ -2,25 +2,22 @@ var width =960,
 	height =600;
 var fill = d3.scale.category20();
 
-d3.csv("language.csv", function(data){
+d3.csv("count_words.csv", function(data){
 	console.log("in");
 	var metadata = data
 	.filter(function (d){ return +d.count>0 ; })
-	.map(function(d){ return { text: d.language, size :10 + Math.random()*50};})
+	.map(function(d){ return { text: d.language, size :d.count};})
 	.sort(function(a,b) { return d3.descending(a.size, b.size); })
 	/*.slice(0,25)*/;
 	
 var layout = d3.layout.cloud()
     .size([width, height])
-    .words([
-      metadata].map(function(d) {
-      return {text: d, size: 10 + Math.random() * 50};
-    }))
-    .padding(0)
-    .rotate(function() { return (Math.random() * 2) * 90; })
+    .words(metadata)
+    .padding(5)
+    .rotate(function() { return ~~(Math.random() * 2) * 90; })
     .font("Impact")
     .fontSize(function(d) { return d.size; })
-    .on("end", draw(metadata));
+    .on("end", draw);
 layout.start();
 });
 function draw(words) {
@@ -37,7 +34,7 @@ function draw(words) {
       .style("fill", function(d, i) { return fill(i); })
       .attr("text-anchor", "middle")
       .attr("transform", function(d) {
-        return "translate(" + [(Math.random() * 200)-100, (Math.random() * 200)-100] + ")rotate(" + (Math.random() * 2)*90 + ")";
+        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
       })
       .text(function(d) { return d.text; });
 	console.log(words);
